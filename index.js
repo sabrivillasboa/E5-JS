@@ -40,14 +40,27 @@ const pizzas=[{
 const arrayStorage = localStorage.setItem ('pizzas', JSON.stringify(pizzas));
 
 const containerCard=document.createElement('section');
-const inputCard= document.createElement('input');
-// const containerInput= document.createElement('div');
-containerCard.appendChild(inputCard);
-// containerCard.appendChild(containerInput);
+document.body.appendChild(containerCard);
 
-const articulo= pizzas.forEach(pizza=>{
+const inputCard= document.createElement('input');
+
+
+const btn= document.createElement('button');
+btn.innerText= 'Buscar';
+
+const containerBuscador= document.createElement('header');
+containerBuscador.appendChild(inputCard);
+containerBuscador.appendChild(btn);
+
+containerCard.appendChild(containerBuscador);
+
+const producto= pizzas.forEach(pizza=>{
     const divCard=document.createElement('div');
     containerCard.appendChild(divCard);
+
+    const imgCard= document.createElement('img');
+    imgCard.setAttribute('src', pizza.imagen);
+    divCard.appendChild(imgCard);
 
     const nameCard=document.createElement('h2');
     nameCard.innerText=`Pizza "${pizza.nombre}"`;
@@ -60,24 +73,18 @@ const articulo= pizzas.forEach(pizza=>{
     const precioCard = document.createElement('p');
     precioCard.innerText= `Precio: $${pizza.precio}`;
     divCard.appendChild(precioCard);
+});
+
+
+btn.addEventListener('click', (e) =>{
+    const inputValue= inputCard.value;
+    pizzaFind = pizzas.find((pizza) => pizza.nombre == inputValue)
+    if(!pizzaFind){
+        alert('Esa pizza no existe');
+        inputCard.value= '';
+        containerCard.removeChild(divCard);
+    }else{
+        return pizzaFind;
+        inputCard.value= '';
+    };
 })
-
-// const containerCard=document.createElement('section');
-// const inputCard= document.createElement('input'); 
-// const divCard=document.createElement('div');
-// containerCard.appendChild(inputCard);
-// containerCard.appendChild(divCard);
-
-// const imgCard=document.createElement('div');
-
-// const nameCard=document.createElement('h2');
-
-// const ingredientesCard= document.createElement('p');
-// const precioCard = document.createElement('p');
-
-// divCard.appendChild(imgCard);
-// divCard.appendChild(nameCard);
-// divCard.appendChild(ingredientesCard);
-// divCard.appendChild(precioCard);
-
-document.body.appendChild(containerCard);
